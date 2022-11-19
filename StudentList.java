@@ -5,7 +5,12 @@ public class StudentList {
 	public static void main(String[] args) {
 
 //		Check arguments
-		if(args[0].equals("a")) {
+		if(args.length>1||args.length<1){
+			System.err.println("Invalid number of argument");
+			System.err.println("Exiting programme");
+			System.exit(1);
+		}
+		else if(args[0].equals("a")) {
 			System.out.println("Loading data ...");
 		    try {
 			  BufferedReader s = new BufferedReader(
@@ -43,7 +48,7 @@ public class StudentList {
 			  Date d = new Date();
 			  String df = "dd/mm/yyyy-hh:mm:ss a";
 			  DateFormat dateFormat = new SimpleDateFormat(df);
-	          String fd= dateFormat.format(d);
+			  String fd= dateFormat.format(d);
 			  s.write(", "+t+"\nList last updated on "+fd);
 			  s.close();
 			} catch (Exception e){}
@@ -52,7 +57,7 @@ public class StudentList {
 		}
 		else if(args[0].contains("?")) 
 		{
-			System.out.println("Loading data ...");			
+			System.out.println("Loading data ...");
 			try {
 			  BufferedReader s = new BufferedReader(
 					new InputStreamReader(
@@ -93,6 +98,12 @@ public class StudentList {
 			  System.out.println(count +" word(s) found " + a.length);
 			} catch (Exception e) {}
 			System.out.println("Data Loaded.");				
+		}
+		else
+		{
+			System.err.println("Invalid number of argument");
+			System.err.println("Exiting programme");
+			System.exit(1);
 		}
 	}
 }
