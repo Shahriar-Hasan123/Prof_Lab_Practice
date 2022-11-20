@@ -11,24 +11,23 @@ public class StudentList {
 		return new BufferedWriter(new FileWriter(Constants.StudentFileName, true));
 	}
 	public static void main(String[] args) {
-
-//		Check arguments
-		if(args.length>1||args.length<1){
+		//		Check Validity of arguments
+		if(args.length!=1){
 			System.err.println(Constants.InvalidMsg);
 			System.err.println(Constants.ExitMsg);
 			System.exit(Constants.InvalidArgStatus);
 		}
-		else if(args[0].equals(Constants.ListOfData)) {
+		//		Check arguments
+		if(args[0].equals(Constants.ListOfData)) { //List data arguments.
 			System.out.println(Constants.LoadingMsg);
 		    try {
-			  String newReadLine[] = readFile().split(Constants.WordSplitRegex);
-			  for(String  index: newReadLine) {
+			  for(String  index: readFile().split(Constants.WordSplitRegex)) {
 				 System.out.println(index);
 			  }
 		    } catch (Exception e){}
 		    System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].equals(Constants.RandomData)) {
+		else if(args[0].equals(Constants.RandomData)) {//Show random data arguments.
 			System.out.println(Constants.LoadingMsg);
 			try {
 			  System.out.println(readFile());
@@ -37,7 +36,7 @@ public class StudentList {
 			} catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains(Constants.AddData)){
+		else if(args[0].contains(Constants.AddData)){//Add data arguments.
 			System.out.println(Constants.LoadingMsg);
 			try {
 			  String formatDate= new SimpleDateFormat(Constants.DataFormatePattern).format(new Date());
@@ -46,7 +45,7 @@ public class StudentList {
 			} catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains(Constants.FindData)) {
+		else if(args[0].contains(Constants.FindData)) {//Find data arguments.
 			System.out.println(Constants.LoadingMsg);
 			try {
 				  if(Arrays.asList(readFile().split(Constants.WordSplitRegex)).contains(args[0].substring(1))) {
@@ -56,7 +55,7 @@ public class StudentList {
 			catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains(Constants.CountData)) {
+		else if(args[0].contains(Constants.CountData)) {//Count data arguments.
 			System.out.println(Constants.LoadingMsg);
 			try {
 			  char charRead[] = readFile().toCharArray();

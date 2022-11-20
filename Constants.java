@@ -1,7 +1,7 @@
 public class Constants {
 
     public static final String StudentFileName="students.txt";
-    public static final String WordSplitRegex=",";
+    public static final String WordSplitRegex=", ";
     public static final String DataFormatePattern="dd/mm/yyyy-hh:mm:ss a";
     public static final int InvalidArgStatus=1;
 
