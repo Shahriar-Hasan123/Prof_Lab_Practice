@@ -2,21 +2,26 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 public class StudentList {
+	public static String readFile() throws IOException{
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(Constants.StudentFileName)));
+		return bufferedReader.readLine();
+	}
+	public static BufferedWriter writeFile()throws IOException{
+		return new BufferedWriter(new FileWriter(Constants.StudentFileName, true));
+	}
 	public static void main(String[] args) {
 
 //		Check arguments
 		if(args.length>1||args.length<1){
-			System.err.println(Constants.StudentFileName);
+			System.err.println(Constants.InvalidMsg);
 			System.err.println(Constants.ExitMsg);
 			System.exit(Constants.InvalidArgStatus);
 		}
 		else if(args[0].equals(Constants.ListOfData)) {
 			System.out.println(Constants.LoadingMsg);
 		    try {
-			  BufferedReader inputBuffer = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream(Constants.StudentFileName)));
-			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
+			  String newReadLine[] = readFile().split(Constants.WordSplitRegex);
 			  for(String  index: newReadLine) {
 				 System.out.println(index);
 			  }
@@ -26,11 +31,8 @@ public class StudentList {
 		else if(args[0].equals(Constants.RandomData)) {
 			System.out.println(Constants.LoadingMsg);
 			try {
-			  BufferedReader inputBuffer = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream(Constants.StudentFileName)));
-			  System.out.println(inputBuffer.readLine());
-			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
+			  System.out.println(readFile());
+			  String newReadLine[] = readFile().split(Constants.WordSplitRegex);
 			  System.out.println(newReadLine[new Random().nextInt()]);
 			} catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
@@ -38,11 +40,9 @@ public class StudentList {
 		else if(args[0].contains(Constants.AddData)){
 			System.out.println(Constants.LoadingMsg);
 			try {
-			  BufferedWriter inputBuffer = new BufferedWriter(
-					new FileWriter(Constants.StudentFileName, true));
 			  String formatDate= new SimpleDateFormat(Constants.DataFormatePattern).format(new Date());
-			  inputBuffer.write(Constants.WordSplitRegex+args[0].substring(Constants.InvalidArgStatus)+Constants.UpdatedMsg+formatDate);
-			  inputBuffer.close();
+			  writeFile().write(Constants.WordSplitRegex+args[0].substring(Constants.InvalidArgStatus)+Constants.UpdatedMsg+formatDate);
+			  writeFile().close();
 			} catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
@@ -50,10 +50,7 @@ public class StudentList {
 		{
 			System.out.println(Constants.LoadingMsg);
 			try {
-			  BufferedReader inputBuffer= new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream(Constants.StudentFileName)));
-			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
+			  String newReadLine[] = readFile().split(Constants.WordSplitRegex);
 			  boolean done = false;
 			  for(int index = 0; index<newReadLine.length && !done; index++) {
 				if(newReadLine[index].equals(args[0].substring(1))) {
@@ -67,10 +64,7 @@ public class StudentList {
 		else if(args[0].contains(Constants.CountData)) {
 			System.out.println(Constants.LoadingMsg);
 			try {
-			  BufferedReader inputBuffer = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream(Constants.StudentFileName)));
-			  char charRead[] = inputBuffer.readLine().toCharArray();
+			  char charRead[] = readFile().toCharArray();
 			  boolean in_word = false;
 			  int count=0;
 			  for(char index:charRead) {
@@ -90,7 +84,7 @@ public class StudentList {
 		}
 		else
 		{
-			System.err.println(Constants.StudentFileName);
+			System.err.println(Constants.InvalidMsg);
 			System.err.println(Constants.ExitMsg);
 			System.exit(Constants.InvalidArgStatus);
 		}
