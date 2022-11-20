@@ -2,12 +2,12 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 public class StudentList {
-	public static String readFile() throws IOException{
+	public static String readFile() throws Exception{
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(new FileInputStream(Constants.StudentFileName)));
 		return bufferedReader.readLine();
 	}
-	public static BufferedWriter writeFile()throws IOException{
+	public static BufferedWriter writeFile()throws Exception{
 		return new BufferedWriter(new FileWriter(Constants.StudentFileName, true));
 	}
 	public static void main(String[] args) {
@@ -46,39 +46,26 @@ public class StudentList {
 			} catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains(Constants.FindData))
-		{
+		else if(args[0].contains(Constants.FindData)) {
 			System.out.println(Constants.LoadingMsg);
 			try {
-			  String newReadLine[] = readFile().split(Constants.WordSplitRegex);
-			  boolean done = false;
-			  for(int index = 0; index<newReadLine.length && !done; index++) {
-				if(newReadLine[index].equals(args[0].substring(1))) {
+				  if(Arrays.asList(readFile().split(Constants.WordSplitRegex)).contains(args[0].substring(1))) {
 					System.out.println(Constants.DataFoundMsg);
-						done=true;
-			    }
-			  }
-			} catch (Exception e){} 
+				  }
+			}
+			catch (Exception e){}
 			System.out.println(Constants.LoadedMsg);
 		}
 		else if(args[0].contains(Constants.CountData)) {
 			System.out.println(Constants.LoadingMsg);
 			try {
 			  char charRead[] = readFile().toCharArray();
-			  boolean in_word = false;
 			  int count=0;
 			  for(char index:charRead) {
-				if(index ==' ') {
-					if (!in_word) {
-						count++;
-						in_word =true;
-					}
-					else {
-						in_word=false;
-					}
-				}
+				  if(index ==' ')
+					  count=count+1;
 			  }
-			  System.out.println(count +Constants.WordFoundMsg + charRead.length);
+			  System.out.println((count / 2 + count % 2) + Constants.WordFoundMsg + charRead.length);
 			} catch (Exception e) {}
 			System.out.println(Constants.LoadedMsg);
 		}
