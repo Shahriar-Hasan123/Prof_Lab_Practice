@@ -6,70 +6,70 @@ public class StudentList {
 
 //		Check arguments
 		if(args.length>1||args.length<1){
-			System.err.println("Invalid number of argument");
-			System.err.println("Exiting programme");
-			System.exit(1);
+			System.err.println(Constants.StudentFileName);
+			System.err.println(Constants.ExitMsg);
+			System.exit(Constants.InvalidArgStatus);
 		}
-		else if(args[0].equals("a")) {
-			System.out.println("Loading data ...");
+		else if(args[0].equals(Constants.ListOfData)) {
+			System.out.println(Constants.LoadingMsg);
 		    try {
 			  BufferedReader inputBuffer = new BufferedReader(
 					new InputStreamReader(
-							new FileInputStream("students.txt")));
-			  String newReadLine[] = inputBuffer.readLine().split(",");
+							new FileInputStream(Constants.StudentFileName)));
+			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
 			  for(String  index: newReadLine) {
 				 System.out.println(index);
 			  }
 		    } catch (Exception e){}
-		    System.out.println("Data Loaded.");
+		    System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].equals("r")) {
-			System.out.println("Loading data ...");			
+		else if(args[0].equals(Constants.RandomData)) {
+			System.out.println(Constants.LoadingMsg);
 			try {
 			  BufferedReader inputBuffer = new BufferedReader(
 					new InputStreamReader(
-							new FileInputStream("students.txt")));
+							new FileInputStream(Constants.StudentFileName)));
 			  System.out.println(inputBuffer.readLine());
-			  String newReadLine[] = inputBuffer.readLine().split(",");
+			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
 			  System.out.println(newReadLine[new Random().nextInt()]);
 			} catch (Exception e){}
-			System.out.println("Data Loaded.");			
+			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains("+")){
-			System.out.println("Loading data ...");			
+		else if(args[0].contains(Constants.AddData)){
+			System.out.println(Constants.LoadingMsg);
 			try {
 			  BufferedWriter inputBuffer = new BufferedWriter(
-					new FileWriter("students.txt", true));
-			  String formatDate= new SimpleDateFormat("dd/mm/yyyy-hh:mm:ss a").format(new Date());
-			  inputBuffer.write(", "+args[0].substring(1)+"\nList last updated on "+formatDate);
+					new FileWriter(Constants.StudentFileName, true));
+			  String formatDate= new SimpleDateFormat(Constants.DataFormatePattern).format(new Date());
+			  inputBuffer.write(Constants.WordSplitRegex+args[0].substring(Constants.InvalidArgStatus)+Constants.UpdatedMsg+formatDate);
 			  inputBuffer.close();
 			} catch (Exception e){}
-			System.out.println("Data Loaded.");	
+			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains("?")) 
+		else if(args[0].contains(Constants.FindData))
 		{
-			System.out.println("Loading data ...");
+			System.out.println(Constants.LoadingMsg);
 			try {
 			  BufferedReader inputBuffer= new BufferedReader(
 					new InputStreamReader(
-							new FileInputStream("students.txt")));
-			  String newReadLine[] = inputBuffer.readLine().split(",");
+							new FileInputStream(Constants.StudentFileName)));
+			  String newReadLine[] = inputBuffer.readLine().split(Constants.WordSplitRegex);
 			  boolean done = false;
 			  for(int index = 0; index<newReadLine.length && !done; index++) {
 				if(newReadLine[index].equals(args[0].substring(1))) {
-					System.out.println("We found it!");
+					System.out.println(Constants.DataFoundMsg);
 						done=true;
 			    }
 			  }
 			} catch (Exception e){} 
-			System.out.println("Data Loaded.");				
+			System.out.println(Constants.LoadedMsg);
 		}
-		else if(args[0].contains("c")) {
-			System.out.println("Loading data ...");			
+		else if(args[0].contains(Constants.CountData)) {
+			System.out.println(Constants.LoadingMsg);
 			try {
 			  BufferedReader inputBuffer = new BufferedReader(
 					new InputStreamReader(
-							new FileInputStream("students.txt")));
+							new FileInputStream(Constants.StudentFileName)));
 			  char charRead[] = inputBuffer.readLine().toCharArray();
 			  boolean in_word = false;
 			  int count=0;
@@ -84,15 +84,15 @@ public class StudentList {
 					}
 				}
 			  }
-			  System.out.println(count +" word(s) found " + charRead.length);
+			  System.out.println(count +Constants.WordFoundMsg + charRead.length);
 			} catch (Exception e) {}
-			System.out.println("Data Loaded.");				
+			System.out.println(Constants.LoadedMsg);
 		}
 		else
 		{
-			System.err.println("Invalid number of argument");
-			System.err.println("Exiting programme");
-			System.exit(1);
+			System.err.println(Constants.StudentFileName);
+			System.err.println(Constants.ExitMsg);
+			System.exit(Constants.InvalidArgStatus);
 		}
 	}
 }
